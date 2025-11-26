@@ -18,41 +18,40 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 export default function About() {
-
-const teamMembers = [
-  {
-    name: "John Doe",
-    role: "CEO & Founder",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    linkedin: "https://linkedin.com/in/johndoe",
-    instagram: "https://instagram.com/johndoe",
-    facebook: "https://facebook.com/johndoe",
-  },
-  {
-    name: "Jane Smith",
-    role: "Chief Technology Officer",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    linkedin: "https://linkedin.com/in/janesmith",
-    instagram: "https://instagram.com/janesmith",
-    facebook: "https://facebook.com/janesmith",
-  },
-  {
-    name: "Mike Johnson",
-    role: "Lead Designer",
-    image: "https://randomuser.me/api/portraits/men/22.jpg",
-    linkedin: "https://linkedin.com/in/mikejohnson",
-    instagram: "https://instagram.com/mikejohnson",
-    facebook: "https://facebook.com/mikejohnson",
-  },
-  {
-    name: "Emily Davis",
-    role: "Marketing Head",
-    image: "https://randomuser.me/api/portraits/women/55.jpg",
-    linkedin: "https://linkedin.com/in/emilydavis",
-    instagram: "https://instagram.com/emilydavis",
-    facebook: "https://facebook.com/emilydavis",
-  },
-];
+  const teamMembers = [
+    {
+      name: "John Doe",
+      role: "CEO & Founder",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
+      linkedin: "https://linkedin.com/in/johndoe",
+      instagram: "https://instagram.com/johndoe",
+      facebook: "https://facebook.com/johndoe",
+    },
+    {
+      name: "Jane Smith",
+      role: "Chief Technology Officer",
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
+      linkedin: "https://linkedin.com/in/janesmith",
+      instagram: "https://instagram.com/janesmith",
+      facebook: "https://facebook.com/janesmith",
+    },
+    {
+      name: "Mike Johnson",
+      role: "Lead Designer",
+      image: "https://randomuser.me/api/portraits/men/22.jpg",
+      linkedin: "https://linkedin.com/in/mikejohnson",
+      instagram: "https://instagram.com/mikejohnson",
+      facebook: "https://facebook.com/mikejohnson",
+    },
+    {
+      name: "Emily Davis",
+      role: "Marketing Head",
+      image: "https://randomuser.me/api/portraits/women/55.jpg",
+      linkedin: "https://linkedin.com/in/emilydavis",
+      instagram: "https://instagram.com/emilydavis",
+      facebook: "https://facebook.com/emilydavis",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -104,7 +103,9 @@ const teamMembers = [
 
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 text-center hover:border-cyan-500/50 transition-all">
-                <div className="text-4xl font-bold text-cyan-400 mb-2">300+</div>
+                <div className="text-4xl font-bold text-cyan-400 mb-2">
+                  300+
+                </div>
                 <div className="text-slate-400">Projects Delivered</div>
               </div>
               <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 text-center hover:border-cyan-500/50 transition-all">
@@ -233,7 +234,9 @@ const teamMembers = [
       {/* Global Reach */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Global Reach</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Our Global Reach
+          </h2>
           <p className="text-xl text-slate-400 mb-12">
             Operating from strategic locations worldwide
           </p>
@@ -253,62 +256,64 @@ const teamMembers = [
         </div>
       </section>
 
-    {/* Team Members Section */}
-<section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/30">
-  <div className="max-w-7xl mx-auto text-center">
-    <h2 className="text-4xl md:text-5xl font-bold mb-6">Meet Our Team</h2>
-    <p className="text-xl text-slate-400 mb-12">
-      A passionate team driving innovation and excellence
-    </p>
+      {/* Team Members Section */}
+      {/*
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/30">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Meet Our Team</h2>
+          <p className="text-xl text-slate-400 mb-12">
+            A passionate team driving innovation and excellence
+          </p>
 
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {teamMembers.map((member, index) => (
-        <div
-          key={index}
-          className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all group"
-        >
-          <img
-            src={member.image}
-            alt={member.name}
-            className="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-cyan-500/30 group-hover:border-cyan-400 transition-all"
-          />
-          <h3 className="text-xl font-semibold text-white mb-1 group-hover:text-cyan-400 transition-colors">
-            {member.name}
-          </h3>
-          <p className="text-slate-400 mb-4">{member.role}</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {teamMembers.map((member, index) => (
+              <div
+                key={index}
+                className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all group"
+              >
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-cyan-500/30 group-hover:border-cyan-400 transition-all"
+                />
+                <h3 className="text-xl font-semibold text-white mb-1 group-hover:text-cyan-400 transition-colors">
+                  {member.name}
+                </h3>
+                <p className="text-slate-400 mb-4">{member.role}</p>
 
-          {/* Social Links */}
-          <div className="flex justify-center gap-4 mt-2">
-            <a
-              href={member.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-400 hover:text-cyan-500 transform hover:scale-125 transition-all duration-300"
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
-            <a
-              href={member.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-400 hover:text-cyan-500 transform hover:scale-125 transition-all duration-300"
-            >
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a
-              href={member.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-400 hover:text-cyan-500 transform hover:scale-125 transition-all duration-300"
-            >
-              <Facebook className="w-5 h-5" />
-            </a>
+               
+                <div className="flex justify-center gap-4 mt-2">
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:text-cyan-500 transform hover:scale-125 transition-all duration-300"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                  <a
+                    href={member.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:text-cyan-500 transform hover:scale-125 transition-all duration-300"
+                  >
+                    <Instagram className="w-5 h-5" />
+                  </a>
+                  <a
+                    href={member.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:text-cyan-500 transform hover:scale-125 transition-all duration-300"
+                  >
+                    <Facebook className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
+*/}
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/30">

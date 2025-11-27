@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Hero from "./Hero";
+import TrustedBrands from "./TrustedBrands";
 import Services from "./Services";
 import Portfolio from "./Portfolio";
 import HowItWorks from "./HowItWorks";
@@ -79,7 +80,9 @@ function WhyChooseUs() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/30">
       <div className="max-w-7xl mx-auto ">
         <div className="text-center mb-16">
-          <span className="text-cyan-400 font-semibold tracking-wider text-sm uppercase">Why Choose Us</span>
+          <span className="text-cyan-400 font-semibold tracking-wider text-sm uppercase">
+            Why Choose Us
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-6 mb-6">
             Why Businesses Choose SMJ Solutions
           </h2>
@@ -140,6 +143,7 @@ export default function Home() {
       <div className="relative z-10">
         <Navbar />
         <Hero />
+        <TrustedBrands />
         <Services />
         <WhyChooseUs />
         <Portfolio />

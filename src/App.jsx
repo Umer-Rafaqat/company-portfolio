@@ -167,7 +167,8 @@ function App() {
 
           /* Float/Bounce Animations */
           @keyframes float {
-            0%, 100% {
+            0%,
+            100% {
               transform: translateY(0px);
             }
             50% {
@@ -176,7 +177,8 @@ function App() {
           }
 
           @keyframes floatSlow {
-            0%, 100% {
+            0%,
+            100% {
               transform: translateY(0px);
             }
             50% {
@@ -185,7 +187,8 @@ function App() {
           }
 
           @keyframes bounce {
-            0%, 100% {
+            0%,
+            100% {
               transform: translateY(0);
             }
             50% {
@@ -195,7 +198,8 @@ function App() {
 
           /* Glow Animations */
           @keyframes glow {
-            0%, 100% {
+            0%,
+            100% {
               box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
             }
             50% {
@@ -217,7 +221,8 @@ function App() {
 
           /* Gradient Animations */
           @keyframes gradient {
-            0%, 100% {
+            0%,
+            100% {
               background-position: 0% 50%;
             }
             50% {
@@ -255,11 +260,13 @@ function App() {
 
           /* Utility Animation Classes */
           .animate-fade-in-up {
-            animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-fade-in-down {
-            animation: fadeInDown 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: fadeInDown 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-fade-in {
@@ -267,23 +274,28 @@ function App() {
           }
 
           .animate-fade-out {
-            animation: fadeOut 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: fadeOut 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-slide-in-left {
-            animation: slideInLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: slideInLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-slide-in-right {
-            animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: slideInRight 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-slide-up {
-            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-slide-down {
-            animation: slideDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: slideDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-slide-right {
@@ -295,11 +307,13 @@ function App() {
           }
 
           .animate-scale-in {
-            animation: scaleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: scaleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-scale-up {
-            animation: scaleUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: scaleUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+              forwards;
           }
 
           .animate-float {
@@ -341,14 +355,30 @@ function App() {
           }
 
           /* Stagger Delays */
-          .stagger-1 { animation-delay: 0.1s; }
-          .stagger-2 { animation-delay: 0.2s; }
-          .stagger-3 { animation-delay: 0.3s; }
-          .stagger-4 { animation-delay: 0.4s; }
-          .stagger-5 { animation-delay: 0.5s; }
-          .stagger-6 { animation-delay: 0.6s; }
-          .stagger-7 { animation-delay: 0.7s; }
-          .stagger-8 { animation-delay: 0.8s; }
+          .stagger-1 {
+            animation-delay: 0.1s;
+          }
+          .stagger-2 {
+            animation-delay: 0.2s;
+          }
+          .stagger-3 {
+            animation-delay: 0.3s;
+          }
+          .stagger-4 {
+            animation-delay: 0.4s;
+          }
+          .stagger-5 {
+            animation-delay: 0.5s;
+          }
+          .stagger-6 {
+            animation-delay: 0.6s;
+          }
+          .stagger-7 {
+            animation-delay: 0.7s;
+          }
+          .stagger-8 {
+            animation-delay: 0.8s;
+          }
 
           /* Smooth Transitions */
           .transition-smooth {
@@ -380,13 +410,14 @@ function App() {
           /* Global smooth transitions */
           * {
             transition-property: color, background-color, border-color,
-                                text-decoration-color, fill, stroke, opacity,
-                                box-shadow, transform;
+              text-decoration-color, fill, stroke, opacity, box-shadow,
+              transform;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 200ms;
           }
 
-          button, a {
+          button,
+          a {
             transition-duration: 300ms;
           }
         `}</style>

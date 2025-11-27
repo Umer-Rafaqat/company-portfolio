@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import emailjs from "@emailjs/browser";
@@ -19,9 +21,7 @@ export default function Contact() {
     agree: false,
   });
 
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const services = [
     "Web Development",
@@ -94,48 +94,46 @@ export default function Contact() {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
-    setError(""); // Clear error when user starts typing
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
     // Validation
     if (!formData.name.trim()) {
-      setError("Please enter your name");
+      toast.error("Please enter your name");
       return;
     }
 
     if (!formData.email.trim()) {
-      setError("Please enter your email");
+      toast.error("Please enter your email");
       return;
     }
 
     // Simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address");
+      toast.error("Please enter a valid email address");
       return;
     }
 
     if (!formData.service) {
-      setError("Please select a service");
+      toast.error("Please select a service");
       return;
     }
 
     if (!formData.message.trim()) {
-      setError("Please enter a message");
+      toast.error("Please enter a message");
       return;
     }
 
     if (!formData.contactMethod) {
-      setError("Please select a contact method");
+      toast.error("Please select a contact method");
       return;
     }
 
     if (!formData.agree) {
-      setError("You must agree to the terms before submitting");
+      toast.error("You must agree to the terms before submitting");
       return;
     }
 
@@ -159,7 +157,7 @@ export default function Contact() {
       );
 
       if (response.status === 200) {
-        setSubmitted(true);
+        toast.success("Message sent successfully! We'll get back to you soon.");
         setFormData({
           name: "",
           email: "",
@@ -170,15 +168,10 @@ export default function Contact() {
           budget: "",
           agree: false,
         });
-
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          setSubmitted(false);
-        }, 5000);
       }
     } catch (err) {
       console.error("Error sending email:", err);
-      setError("Failed to send message. Please try again later.");
+      toast.error("Failed to send message. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -186,6 +179,19 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+
       <Navbar />
 
       {/* Hero Section */}
@@ -242,22 +248,6 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8">
               <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
-
-              {submitted && (
-                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg flex items-center space-x-3 animate-slide-up">
-                  <CheckCircle className="w-5 h-5 text-green-400" />
-                  <span className="text-green-300">
-                    Message sent successfully! We'll get back to you soon.
-                  </span>
-                </div>
-              )}
-
-              {error && (
-                <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-center space-x-3 animate-slide-up">
-                  <CheckCircle className="w-5 h-5 text-red-400" />
-                  <span className="text-red-300">{error}</span>
-                </div>
-              )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name + Email */}

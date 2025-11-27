@@ -87,7 +87,7 @@ export default function PortfolioDetail() {
       category: "Website",
       heroImage: un,
       overview:
-        "A full-stack task management app for handling construction and site work operations efficiently.",
+        "A full-stack Unique Engineering Website for handling construction and site work operations efficiently.",
       challenge:
         "Managing multiple teams and tasks on-site with real-time status tracking.",
       solution:

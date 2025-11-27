@@ -123,7 +123,7 @@ export default function AllProjects() {
       </section>
 
       {/* Filter Section */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-slate-900/30 sticky top-20 z-40">
+      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-slate-900/30  top-20 z-40">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (

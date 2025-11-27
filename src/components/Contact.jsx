@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import emailjs from "@emailjs/browser";
+
+// Initialize EmailJS
+emailjs.init("udznJym6zm12-dR5l");
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -16,6 +20,8 @@ export default function Contact() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const services = [
     "Web Development",
@@ -31,42 +37,42 @@ export default function Contact() {
 
   const contactInfo = [
     {
-    icon: <MapPin className="w-10 h-10 text-cyan-400" />,
-    title: "Visit Us",
-    lines: [
-      <span className="flex items-center gap-3" key="pak">
-        <img
-          src="/flags/pakistan.png"
-          className="w-8 h-5 object-cover rounded-sm border border-slate-700"
-          alt="Pakistan Flag"
-        />
-        commerical 20, khawaja banglows, RYK. PAKISTAN
-      </span>,
+      icon: <MapPin className="w-10 h-10 text-cyan-400" />,
+      title: "Visit Us",
+      lines: [
+        <span className="flex items-center gap-3" key="pak">
+          <img
+            src="/flags/pakistan.png"
+            className="w-8 h-5 object-cover rounded-sm border border-slate-700"
+            alt="Pakistan Flag"
+          />
+          commerical 20, khawaja banglows, RYK. PAKISTAN
+        </span>,
 
-      <span className="flex items-center gap-3" key="dubai">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
-          className="w-8 h-5 object-cover rounded-sm border border-slate-700"
-          alt="UAE Flag"
-        />
-        Khalidiyah Towers, Block A, Abu Dhabi, UAE
-      </span>,
+        <span className="flex items-center gap-3" key="dubai">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
+            className="w-8 h-5 object-cover rounded-sm border border-slate-700"
+            alt="UAE Flag"
+          />
+          Khalidiyah Towers, Block A, Abu Dhabi, UAE
+        </span>,
 
-      <span className="flex items-center gap-3" key="qatar">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
-          className="w-8 h-5 object-cover rounded-sm border border-slate-700"
-          alt="Qatar Flag"
-        />
-       Transworld Tower 1, Doha, Qatar
-      </span>,
-    ],
-  },
+        <span className="flex items-center gap-3" key="qatar">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
+            className="w-8 h-5 object-cover rounded-sm border border-slate-700"
+            alt="Qatar Flag"
+          />
+          Transworld Tower 1, Doha, Qatar
+        </span>,
+      ],
+    },
 
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
-      lines: ["+971 50 276 9285","+923216716065"],
+      lines: ["+971 50 276 9285", "+923216716065"],
     },
 
     {
@@ -88,31 +94,94 @@ export default function Contact() {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
+    setError(""); // Clear error when user starts typing
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    if (!formData.agree) {
-      alert("You must agree to the terms before submitting.");
+    // Validation
+    if (!formData.name.trim()) {
+      setError("Please enter your name");
       return;
     }
 
-    setSubmitted(true);
+    if (!formData.email.trim()) {
+      setError("Please enter your email");
+      return;
+    }
 
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: "",
-        contactMethod: "",
-        budget: "",
-        agree: false,
-      });
-      setSubmitted(false);
-    }, 3000);
+    // Simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (!formData.service) {
+      setError("Please select a service");
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      setError("Please enter a message");
+      return;
+    }
+
+    if (!formData.contactMethod) {
+      setError("Please select a contact method");
+      return;
+    }
+
+    if (!formData.agree) {
+      setError("You must agree to the terms before submitting");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        "service_2thmr8d",
+        "template_1w0q6ss",
+        {
+          to_email: "info@smjsols.com",
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone || "Not provided",
+          service: formData.service,
+          message: formData.message,
+          contact_method: formData.contactMethod,
+          budget: formData.budget || "Not specified",
+        }
+      );
+
+      if (response.status === 200) {
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          message: "",
+          contactMethod: "",
+          budget: "",
+          agree: false,
+        });
+
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 5000);
+      }
+    } catch (err) {
+      console.error("Error sending email:", err);
+      setError("Failed to send message. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -123,7 +192,10 @@ export default function Contact() {
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-slate-950 to-blue-900/20"></div>
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-600/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <span className="text-cyan-400 font-semibold tracking-wider text-sm">
@@ -133,7 +205,8 @@ export default function Contact() {
             Let's Start a Conversation
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            Have a project in mind? We'd love to hear from you. Send us a
+            message and we'll respond as soon as possible.
           </p>
         </div>
       </section>
@@ -171,11 +244,18 @@ export default function Contact() {
               <h2 className="text-3xl font-bold mb-6">Send Us a Message</h2>
 
               {submitted && (
-                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg flex items-center space-x-3">
+                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg flex items-center space-x-3 animate-slide-up">
                   <CheckCircle className="w-5 h-5 text-green-400" />
                   <span className="text-green-300">
                     Message sent successfully! We'll get back to you soon.
                   </span>
+                </div>
+              )}
+
+              {error && (
+                <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg flex items-center space-x-3 animate-slide-up">
+                  <CheckCircle className="w-5 h-5 text-red-400" />
+                  <span className="text-red-300">{error}</span>
                 </div>
               )}
 
@@ -191,9 +271,8 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      required
                       placeholder="John Doe"
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-slate-500"
                     />
                   </div>
 
@@ -206,9 +285,8 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
                       placeholder="john@example.com"
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-slate-500"
                     />
                   </div>
                 </div>
@@ -225,7 +303,7 @@ export default function Contact() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+92 XXXX XXX XXX"
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-slate-500"
                     />
                   </div>
 
@@ -237,7 +315,6 @@ export default function Contact() {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      required
                       className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
                     >
                       <option value="">Select a project</option>
@@ -253,13 +330,12 @@ export default function Contact() {
                 {/* Contact Method */}
                 <div>
                   <label className="block text-sm font-medium mb-2 text-slate-300">
-                    How Should We Contact You?
+                    How Should We Contact You? *
                   </label>
                   <select
                     name="contactMethod"
                     value={formData.contactMethod}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
                   >
                     <option value="">Choose an option</option>
@@ -279,7 +355,6 @@ export default function Contact() {
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
                   >
                     <option value="">Select budget</option>
@@ -288,25 +363,6 @@ export default function Contact() {
                     <option>$1,000–5,000</option>
                     <option>$5,000+</option>
                   </select>
-                </div>
-
-                {/* Agreement */}
-                <div className="flex items-start space-x-3">
-                  <input
-                    type="checkbox"
-                    name="agree"
-                    checked={formData.agree}
-                    onChange={handleChange}
-                    required
-                    className="w-5 h-5 accent-cyan-500 cursor-pointer"
-                  />
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    I agree to the{" "}
-                    <span className="text-cyan-400">Privacy Policy</span> and{" "}
-                    <span className="text-cyan-400">Terms & Conditions.</span>{" "}
-                    I agree to receive SMS, email, and phone updates regarding
-                    services and promotions.
-                  </p>
                 </div>
 
                 {/* Message */}
@@ -318,20 +374,40 @@ export default function Contact() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    required
                     rows="6"
                     placeholder="Tell us about your project..."
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white resize-none"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:border-cyan-500 text-white resize-none placeholder-slate-500"
                   ></textarea>
+                </div>
+
+                {/* Agreement */}
+                <div className="flex items-start space-x-3">
+                  <input
+                    type="checkbox"
+                    name="agree"
+                    checked={formData.agree}
+                    onChange={handleChange}
+                    className="w-5 h-5 accent-cyan-500 cursor-pointer mt-1"
+                  />
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    I agree to the{" "}
+                    <span className="text-cyan-400">Privacy Policy</span> and{" "}
+                    <span className="text-cyan-400">Terms & Conditions.</span> I
+                    agree to receive SMS, email, and phone updates regarding
+                    services and promotions.
+                  </p>
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>Send Message</span>
-                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <span>{loading ? "Sending..." : "Send Message"}</span>
+                  {!loading && (
+                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  )}
                 </button>
               </form>
             </div>

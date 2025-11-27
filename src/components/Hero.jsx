@@ -317,19 +317,19 @@ export default function Hero() {
             {/* Key Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-slate-700/50 max-w-xl mx-auto md:mx-0  animate-fade-in-up stagger-3">
               <div className="text-center transform hover:scale-110 transition-transform">
-                <div className="text-3xl font-bold text-cyan-400 animate-fade-in-up cursor-pointer">
+                <div className="text-3xl font-bold text-cyan-400 animate-fade-in-up ">
                   300+
                 </div>
                 <div className="text-sm text-slate-300">Projects Completed</div>
               </div>
               <div className="text-center transform hover:scale-110 transition-transform">
-                <div className="text-3xl font-bold text-cyan-400 animate-fade-in-up stagger-1 cursor-pointer">
+                <div className="text-3xl font-bold text-cyan-400 animate-fade-in-up stagger-1 ">
                   50+
                 </div>
                 <div className="text-sm text-slate-300">Team Members</div>
               </div>
               <div className="text-center transform hover:scale-110 transition-transform">
-                <div className="text-3xl font-bold text-cyan-400 animate-fade-in-up stagger-2 cursor-pointer">
+                <div className="text-3xl font-bold text-cyan-400 animate-fade-in-up stagger-2 ">
                   7+
                 </div>
                 <div className="text-sm text-slate-300">Years in Business</div>

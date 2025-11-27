@@ -6,12 +6,10 @@ import {
   Zap,
   Shield,
   Users,
-  Globe,
   CheckCircle,
   Linkedin,
   Instagram,
   Facebook,
-  Mail,
 } from "lucide-react";
 
 import Navbar from "./Navbar";
@@ -50,6 +48,38 @@ export default function About() {
       linkedin: "https://linkedin.com/in/emilydavis",
       instagram: "https://instagram.com/emilydavis",
       facebook: "https://facebook.com/emilydavis",
+    },
+  ];
+
+  const globalLocations = [
+    {
+      name: "Pakistan",
+      flag: "/flags/pakistan.png",
+      fallback:
+        "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+    },
+    {
+      name: "UAE",
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg",
+      fallback:
+        "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg",
+    },
+    {
+      name: "Qatar",
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg",
+      fallback:
+        "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg",
+    },
+    {
+      name: "UK",
+      flag: "https://flagcdn.com/gb.svg",
+      fallback: "https://flagcdn.com/gb.svg",
+    },
+    {
+      name: "International Clients",
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_the_United_Nations.svg",
+      fallback:
+        "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_the_United_Nations.svg",
     },
   ];
 
@@ -204,7 +234,7 @@ export default function About() {
                 desc: "Always learning and evolving our methods",
               },
               {
-                icon: <Globe className="w-6 h-6" />,
+                icon: <CheckCircle className="w-6 h-6" />,
                 title: "Global Collaboration",
                 desc: "Diverse perspectives creating better solutions",
               },
@@ -240,18 +270,25 @@ export default function About() {
           <p className="text-xl text-slate-400 mb-12">
             Operating from strategic locations worldwide
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {["Pakistan", "UAE", "Qatar", "UK", "International Clients"].map(
-              (location, i) => (
-                <div
-                  key={i}
-                  className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 rounded-lg p-6"
-                >
-                  <Globe className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
-                  <p className="font-semibold">{location}</p>
-                </div>
-              )
-            )}
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {globalLocations.map((location, i) => (
+              <div
+                key={i}
+                className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-lg p-6 hover:border-cyan-500/50 transition-all group"
+              >
+                <img
+                  src={location.flag}
+                  alt={location.name}
+                  className="w-20 h-12 object-cover rounded-md mx-auto mb-3 border border-slate-700 group-hover:border-cyan-400 transition-all"
+                  onError={(e) => {
+                    e.target.src = location.fallback;
+                  }}
+                />
+                <p className="font-semibold text-slate-300 group-hover:text-cyan-400 transition-colors">
+                  {location.name}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

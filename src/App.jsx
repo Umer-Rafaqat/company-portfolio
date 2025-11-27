@@ -1,4 +1,5 @@
 import React from "react";
+import ScrollUpButton from "./components/ScrollUpButton";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -21,7 +22,7 @@ function App() {
           <Route path="/portfolio" element={<AllProjects />} />
           <Route path="/portfolio/:projectSlug" element={<PortfolioDetail />} />
         </Routes>
-
+        <ScrollUpButton />
         <style jsx>{`
           /* ==========================================
              SMOOTH ANIMATION LIBRARY

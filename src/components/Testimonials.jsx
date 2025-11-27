@@ -87,7 +87,7 @@ export default function Testimonials() {
     const maxSlides = Math.ceil(testimonials.length / slidesPerView);
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % maxSlides);
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(timer);
   }, [slidesPerView, isAutoPlay, testimonials.length]);
@@ -125,15 +125,27 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div className="relative group" onMouseEnter={() => setIsAutoPlay(false)} onMouseLeave={() => setIsAutoPlay(true)}>
+        <div
+          className="relative group"
+          onMouseEnter={() => setIsAutoPlay(false)}
+          onMouseLeave={() => setIsAutoPlay(true)}
+        >
           {/* Carousel Container */}
           <div className="overflow-hidden rounded-2xl">
             <div
               className="flex transition-transform duration-700 ease-out"
-              style={{ transform: `translateX(-${currentIndex * translatePercentage}%)` }}
+              style={{
+                transform: `translateX(-${
+                  currentIndex * translatePercentage
+                }%)`,
+              }}
             >
               {testimonials.map((t, i) => (
-                <div key={i} className="flex-shrink-0 px-3" style={{ width: `${translatePercentage}%` }}>
+                <div
+                  key={i}
+                  className="flex-shrink-0 px-3"
+                  style={{ width: `${translatePercentage}%` }}
+                >
                   <TestimonialCard testimonial={t} index={i} />
                 </div>
               ))}
@@ -164,14 +176,16 @@ export default function Testimonials() {
               onClick={() => goToSlide(dotIndex)}
               className="transition-all duration-300 rounded-full transform hover:scale-125 outline-none focus:outline-none"
               style={{
-                width: currentIndex === dotIndex ? '12px' : '8px',
-                height: currentIndex === dotIndex ? '12px' : '8px',
-                background: currentIndex === dotIndex 
-                  ? 'linear-gradient(135deg, #06b6d4, #3b82f6)'
-                  : '#475569',
-                boxShadow: currentIndex === dotIndex
-                  ? '0 0 15px rgba(34, 211, 238, 0.5)'
-                  : 'none'
+                width: currentIndex === dotIndex ? "12px" : "8px",
+                height: currentIndex === dotIndex ? "12px" : "8px",
+                background:
+                  currentIndex === dotIndex
+                    ? "linear-gradient(135deg, #06b6d4, #3b82f6)"
+                    : "#475569",
+                boxShadow:
+                  currentIndex === dotIndex
+                    ? "0 0 15px rgba(34, 211, 238, 0.5)"
+                    : "none",
               }}
               aria-label={`Go to slide ${dotIndex + 1}`}
             />
@@ -194,23 +208,28 @@ function TestimonialCard({ testimonial, index }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
-        transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
-        transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        transform: isHovered
+          ? "translateY(-8px) scale(1.02)"
+          : "translateY(0) scale(1)",
+        transition: "all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
       }}
     >
       {/* Star Rating */}
-      <div className="flex items-center space-x-1 mb-4 transform transition-all duration-500"
+      <div
+        className="flex items-center space-x-1 mb-4 transform transition-all duration-500"
         style={{
-          transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-          transformOrigin: 'left'
+          transform: isHovered ? "scale(1.1)" : "scale(1)",
+          transformOrigin: "left",
         }}
       >
         {[...Array(testimonial.rating)].map((_, j) => (
-          <Star 
-            key={j} 
+          <Star
+            key={j}
             className="w-5 h-5 fill-cyan-400 text-cyan-400 transition-all duration-300"
             style={{
-              animation: isHovered ? `bounce ${0.5 + j * 0.1}s ease-in-out` : 'none'
+              animation: isHovered
+                ? `bounce ${0.5 + j * 0.1}s ease-in-out`
+                : "none",
             }}
           />
         ))}
@@ -220,7 +239,7 @@ function TestimonialCard({ testimonial, index }) {
       <p
         className="text-slate-300 mb-6 leading-relaxed italic text-sm sm:text-base transition-all duration-500 min-h-20"
         style={{
-          color: isHovered ? '#e0e7ff' : '#cbd5e1'
+          color: isHovered ? "#e0e7ff" : "#cbd5e1",
         }}
       >
         "{testimonial.review}"
@@ -230,7 +249,9 @@ function TestimonialCard({ testimonial, index }) {
       <div
         className="border-t border-slate-700/50 pt-6 transition-all duration-500"
         style={{
-          borderColor: isHovered ? 'rgba(34, 211, 238, 0.3)' : 'rgba(51, 65, 85, 0.5)'
+          borderColor: isHovered
+            ? "rgba(34, 211, 238, 0.3)"
+            : "rgba(51, 65, 85, 0.5)",
         }}
       ></div>
 
@@ -241,14 +262,16 @@ function TestimonialCard({ testimonial, index }) {
           alt={testimonial.name}
           className="w-12 h-12 rounded-full object-cover border-2 border-slate-700 group-hover:border-cyan-500/50 transition-all duration-500 transform group-hover:scale-110"
         />
-        <div className="transform transition-all duration-500"
+        <div
+          className="transform transition-all duration-500"
           style={{
-            transform: isHovered ? 'translateX(5px)' : 'translateX(0)'
+            transform: isHovered ? "translateX(5px)" : "translateX(0)",
           }}
         >
-          <h4 className="font-bold text-white text-sm transition-colors duration-500"
+          <h4
+            className="font-bold text-white text-sm transition-colors duration-500"
             style={{
-              color: isHovered ? '#22d3ee' : '#ffffff'
+              color: isHovered ? "#22d3ee" : "#ffffff",
             }}
           >
             {testimonial.name}
@@ -263,8 +286,8 @@ function TestimonialCard({ testimonial, index }) {
       <div
         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent pointer-events-none rounded-2xl"
         style={{
-          transform: isHovered ? 'translateX(200%)' : 'translateX(-200%)',
-          transition: 'transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+          transform: isHovered ? "translateX(200%)" : "translateX(-200%)",
+          transition: "transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         }}
       ></div>
 
@@ -273,7 +296,7 @@ function TestimonialCard({ testimonial, index }) {
         className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 to-transparent rounded-2xl pointer-events-none"
         style={{
           opacity: isHovered ? 0.5 : 0,
-          transition: 'opacity 0.5s ease-out'
+          transition: "opacity 0.5s ease-out",
         }}
       ></div>
     </div>
